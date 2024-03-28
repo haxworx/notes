@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% block title %}Editor{% endblock %}
+
+{% block body %}
+    {% if is_edit %}
+    <h1>Update</h1>
+    {% else %}
+    <h1>Create</h1>
+    {% endif %}
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.entry) }}
+    <button type="submit" class="btn btn-primary btn-sm">
+        {% if is_edit %}
+        Update
+        {% else %}
+        Create
+        {% endif %}
+    </button>
+    {{ form_end(form) }}
+{% endblock %}

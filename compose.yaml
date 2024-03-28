@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  database:
+    container_name: notes-mysql
+    image: mysql
+    build:
+      context: .docker/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=username
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=notes
+    volumes:
+      - database_data:/var/lib/mysql:rw
+    ports:
+      - "3306:3306"
+
+  apache:
+    container_name: notes-apache
+    image: php8.3-apache
+    build:
+      context: .docker/apache
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - "8080:80"
+
+volumes:
+  database_data:

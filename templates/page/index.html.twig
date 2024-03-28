@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    {% for note in notes %}
+        <table class="table table-striped">
+            <thead>
+            <tr><th>{{ note.title }}</th></tr>
+            </thead>
+            <tbody>
+            <tr><td>{{ note.timestamp|date('Y-m-d H:i:s') }}</td></tr>
+            <tr><td>{{ note.entry }}</td></tr>
+            <tr><td>
+                    <form action="{{ path('app_delete', { id: note.id})}}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token('app_delete') }}">
+                        <input type="hidden" name="id" value="{{ note.id }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Delete</button>
+                    </form></td></tr>
+            </tbody>
+        </table>
+        <hr>
+    {% endfor %}
+{% endblock %}
